@@ -169,3 +169,57 @@ export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
 export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 export AWS_DEFAULT_REGION=us-west-2 
 ```
+
+## Terraform Basics
+
+### Terraform Registry
+
+Terraform sources thier providers and modules from the Terraform registry which located at [https://registry.terraform.io/](https://registry.terraform.io/)
+
+- **Providers** is an interface to APIs that will allow you to create resources in terraform
+- **Modules** are a way to make large amount of terrform code modular,portable and sharable.
+
+### Terrafrom Console
+
+We can see a list of all the Terraform commands by simply typing `terrafrom`
+
+#### Terraform Init
+
+At the start of a new terrafrom project we will run `terrafrom init` to download the binaries for the terraform providers that we'll use in this project.
+
+#### Terrafrom Plan
+
+This will generate out a changeset, about the state of our infrastructure and what will be changed.
+
+We can outpyt this changeset ie. "plan" to be passed to an apply, but often you can just ignore outputting.
+
+
+##### Terrafrom Apply
+
+`terraform apply`
+
+This will run a plan and pass the changeset to be excuted by terraform. Apply should prompt yes or no.
+
+If we want to automatically approve an apply we can provide the auto approve flag eg. `terraform apply --auto-approve`
+
+## Terrafrom Lock Files
+
+`.terraform.lock.hcl` conatins the locked versioning for the providers or modules thay should be used with this project.
+
+The Terraform Lock File shoul dbe committed to your Version Control Sytem (VSC) eg. Github
+
+### Terrafrom State Files
+
+`.terrafrom.tfstate` contain information about the current state of your infrastructure.
+
+This file **should not be committed** to your VCS.
+
+this file can contain sensitive data.
+
+If you lose this file, you lose knowing the state of your infrastructure.
+
+`.terraform.tfstate.backup` is the prevopus file state.
+
+### Terrafrom Directory
+
+`.terraform` directory contains binaries of terraform providers.
