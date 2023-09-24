@@ -262,3 +262,4 @@ Provide the following code (replace your token in the file):
   }
 ```
 
+We have automated this workaorund with the fowllowing bash script [bin]
