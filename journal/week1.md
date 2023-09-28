@@ -62,7 +62,7 @@ Terraform loads variables in the following order, with later sources taking prec
 
 If you lose your statefile, you most likley have to tear down all your cloud infrastructure manually.
 
-You can use terraform port but it won't for all cloud resources. You need check the terraform providers documentation for which resources support import.
+You can use terraform import but it work won't for all cloud resources. You need check the terraform providers documentation for which resources support import.
 
 ### Fix Missing Resources with Terraform Import
 
