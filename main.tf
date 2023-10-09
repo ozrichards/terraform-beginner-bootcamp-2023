@@ -8,12 +8,12 @@
 #     }
 #   }
 # }
-#     cloud {
-#       organization = "ozararichard"
-#       workspaces {
-#         name = "terra-house-1"
-#     }
-#   }
+    cloud {
+      organization = "ozararichard"
+      workspaces {
+        name = "terraform-cloud"
+    }
+  }
   
 }    
 
