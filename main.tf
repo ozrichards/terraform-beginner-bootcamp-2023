@@ -42,7 +42,7 @@ resource "terratowns_home" "home" {
 A space to point to best dashcams in 2023. 
 DESCRIPTION
   domain_name = module.home_arcanum_hosting.domain_name
-  town = "missingo"
+  town = "video-valley"
   content_version = var.arcanum.content_version
 }
 
@@ -59,6 +59,6 @@ resource "terratowns_home" "home_payday" {
 Aspire to climb as high as you can dream. 
 DESCRIPTION
   domain_name =  module.home_payday_hosting.domain_name
-  town = "missingo"
+  town = "the-nomad-pad"
   content_version = var.payday.content_version
 }
