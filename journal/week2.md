@@ -62,4 +62,20 @@ CRUD stands for Create, Read Update, and Delete
 
 https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
 
+## Other Terraform notes
 
+The The required providers block needs to be specified in a Terraform project to configure a provider.
+
+```go 
+go get
+``` 
+command is for installing missing dependencies in Go.
+
+The purpose of the provider configure function in the discussed Go code is to initialize the provider with configuration details
+"Marshal" function in Go is used to convert data into bytes
+
+The Terraform provider primarily cares about the "ID" for mapping.
+
+Schema is used to define the inputs in a Terraform provider
+
+OUTPUTS can be used to reference a specific attribute of a resource in Terraform
