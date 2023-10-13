@@ -1,4 +1,4 @@
- terraform {
+terraform {
    required_providers {
      terratowns = {
        source = "local.providers/local/terratowns"
@@ -14,12 +14,12 @@
 #     }
 #   }
 # }
-#     cloud {
-#       organization = "ozararichard"
-#       workspaces {
-#         name = "terra-house-1"
-#     }
-#   }
+    cloud {
+      organization = "ozararichard"
+      workspaces {
+        name = "terra-house-1"
+    }
+  }
   
 }    
 
@@ -29,13 +29,11 @@ provider "terratowns" {
   token=var.terratowns_access_token
   
 }
-module "terrahouse_aws" {
-  source = "./modules/terrahouse_aws"
+module "home_arcanum_hosting" {
+  source = "./modules/terrahome_aws"
   user_uuid = var.teacherseat_user_uuid
-  index_html_filepath = var.index_html_filepath
-  error_html_filepath = var.error_html_filepath
-  assets_path = var.assets_path
-  content_version = var.content_version
+  public_path = var.arcanum.public_path
+  content_version = var.arcanum.content_version
 }
 
 resource "terratowns_home" "home" {
@@ -43,8 +41,24 @@ resource "terratowns_home" "home" {
   description = <<DESCRIPTION
 A space to point to best dashcams in 2023. 
 DESCRIPTION
-  domain_name = module.terrahouse_aws.cloudfront_url
-  #domain_name = "3fd32oq3gz.cloudfront.net"
+  domain_name = module.home_arcanum_hosting.domain_name
   town = "missingo"
-  content_version = 1
+  content_version = var.arcanum.content_version
+}
+
+module "home_payday_hosting" {
+  source = "./modules/terrahome_aws"
+  user_uuid = var.teacherseat_user_uuid
+  public_path = var.payday.public_path
+  content_version = var.payday.content_version
+}
+
+resource "terratowns_home" "home_payday" {
+  name = " Something to find in 2023!"
+  description = <<DESCRIPTION
+Aspire to climb as high as you can dream. 
+DESCRIPTION
+  domain_name =  module.home_payday_hosting.domain_name
+  town = "missingo"
+  content_version = var.payday.content_version
 }

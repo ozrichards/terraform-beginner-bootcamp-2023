@@ -79,3 +79,7 @@ The Terraform provider primarily cares about the "ID" for mapping.
 Schema is used to define the inputs in a Terraform provider
 
 OUTPUTS can be used to reference a specific attribute of a resource in Terraform
+
+The term "interpolation" refers to the process of embedding variables within other strings.
+
+Remote execution mode can be changed to "local" in Terraform Cloud
