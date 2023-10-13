@@ -1,9 +1,9 @@
 // package main: Declares the package name. 
 // The main package is special in Go, it's where the execution of the program starts.
- package main
+package main
 
- // fmt is short format, it contains functions for formatted I/O.
- import (
+// fmt is short format, it contains functions for formatted I/O.
+import (
 	"bytes"
 	"context"
 	"encoding/json"
@@ -15,28 +15,25 @@
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
 )
-
 // func main(): Defines the main function, the entry point of the app. 
 // When you run the program, it starts executing from this function.
- func main() {
+func main() {
 	plugin.Serve(&plugin.ServeOpts{
-	  ProviderFunc: Provider,
-
+		ProviderFunc: Provider,
 	})
 	// Format.PrintLine
 	// Prints to standard output
-	fmt.Println("Hello, World!")
- }
+	fmt.Println("Hello, world!")
+}
 
- type Config struct {
+type Config struct {
 	Endpoint string
 	Token string
 	UserUuid string
 }
 
-
- // in golang, a titlecase function will get exported.
- func Provider() *schema.Provider {
+// in golang, a titlecase function will get exported.
+func Provider() *schema.Provider {
 	var p *schema.Provider
 	p = &schema.Provider{
 		ResourcesMap:  map[string]*schema.Resource{
@@ -229,7 +226,7 @@ func resourceHouseRead(ctx context.Context, d *schema.ResourceData, m interface{
 		d.Set("description",responseData["description"].(string))
 		d.Set("domain_name",responseData["domain_name"].(string))
 		d.Set("content_version",responseData["content_version"].(float64))
-	} else if resp.StatusCode != http.StatusNotFound {
+	} else if resp.StatusCode == http.StatusNotFound {
 		d.SetId("")
 	} else if resp.StatusCode != http.StatusOK {
 		return diag.FromErr(fmt.Errorf("failed to read home resource, status_code: %d, status: %s, body %s", resp.StatusCode, resp.Status, responseData))
@@ -278,9 +275,15 @@ func resourceHouseUpdate(ctx context.Context, d *schema.ResourceData, m interfac
 	}
 	defer resp.Body.Close()
 
+	// parse response JSON
+	var responseData map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&responseData);  err != nil {
+		return diag.FromErr(err)
+	}
+
 	// StatusOK = 200 HTTP Response Code
 	if resp.StatusCode != http.StatusOK {
-		return diag.FromErr(fmt.Errorf("failed to update home resource, status_code: %d, status: %s", resp.StatusCode, resp.Status))
+		return diag.FromErr(fmt.Errorf("failed to update home resource, status_code: %d, status: %s, body %s", resp.StatusCode, resp.Status, responseData))
 	}
 
 	log.Print("resourceHouseUpdate:end")
